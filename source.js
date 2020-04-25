@@ -1,6 +1,6 @@
-function doWith(image) {
-  ids=[
-  '164335977', '195389',    '184801100', '61516',     '21604248',
+//var idl;
+function doWith(image){
+  ids=['164335977', '195389',    '184801100', '61516',     '21604248',
   '109765',    '1367068',   '28034788',  '100947',    '259680',
   '61581',     '27920',     '61580',     '1509839',   '9440985',
   '405658',    '53764',     '89655',     '40945639',  '1202623',
@@ -19,30 +19,35 @@ function doWith(image) {
   '97984',     '178591752', '80707627',  '119139145', '4087833',
   '89370399',  '1035805',   '148909805', '93895088',  '222403160',
   '217743513', '188390779', '438680',    '131087935', '124822590',
-  '102156234', '129242436', '87743020',  '112126428', '181913649'
-];
-ids=ids.filter(function(id){
-  return id!==image.id;
-});
-console.log(ids);
-
-for (var i = 0; i < ids.length; i++) {
-  document.getElementById(ids[i]).remove();
+  '102156234', '129242436', '87743020',  '112126428', '181913649'];
+  ids=ids.filter(function(id){
+    return id!==image.id;
+  });
+  for(var i = 0; i < ids.length; i++){
+    document.getElementById(ids[i]).remove();
   }
+  idl=image.id;
   var element = document.getElementById(image.id);
-var newElement = '<form><label for="one">First text:</label><br><input type="text" id="one" name="one" value="Making memes with photoshop"><br><label for="two">Second text:</label><br><input type="text" id="two" name="two" value="Making memes on this site"><br><br><button onClick="makeMeme()">Make memes</button><button type="submit">Return</button></form>';
-element.insertAdjacentHTML( 'afterend', newElement );
-}
+  var newElement = '<form><label for="one">First text:</label><br><input type="text" id="one" name="one" value="Making memes with photoshop"><br><label for="two">Second text:</label><br><input type="text" id="two" name="two" value="Making memes on this site"><br><br><button id="b" onClick="makeMeme()">Make memes</button><button type="submit">Return</button></form>';
+  element.insertAdjacentHTML('afterend', newElement);
+};
 function makeMeme(){
+  var first=document.getElementById("one");
+  var second=document.getElementById("two");
   const params = {
-    template_id: template.id,
-    text0: topText,
-    text1: bottomText,
+    template_id: idl,
+    text0: first.value,
+    text1: second.value,
     username: "xzk03017",
     password: "xzk03017@cndps.com"
   }
-}
-/* onSubmit={async e => {
-            e.preventDefault();
-            // add logic to create meme from api
-            ;*/
+  var element = document.getElementById("b");
+  $.post("https://api.imgflip.com/caption_image", params, function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+    var newElement='<img src=\"'+data.data.url+'\">';
+    console.log("Data: " + data + "\nStatus: " + status);
+    console.log(data.data.url, data.data.page_url);
+    element.insertAdjacentHTML('afterend', newElement);
+  }, "json");
+
+};
