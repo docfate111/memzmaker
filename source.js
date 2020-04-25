@@ -28,7 +28,7 @@ function doWith(image){
   }
   idl=image.id;
   var element = document.getElementById(image.id);
-  var newElement = '<form><label for="one">First text:</label><br><input type="text" id="one" name="one" value="Making memes with photoshop"><br><label for="two">Second text:</label><br><input type="text" id="two" name="two" value="Making memes on this site"><br><br><button id="b" onClick="makeMeme()">Make memes</button><button type="submit">Return</button></form>';
+  var newElement = '<form><label for="one">First text:</label><br><input type="text" id="one" name="one" style="font-size : 20px; width: 20%; height: 100px;" value="Making memes with photoshop"><br><label for="two">Second text:</label><br><input type="text" style="font-size : 20px; width: 20%; height: 100px;" size="200" id="two" name="two" value="Making memes on this site"><br><br><button id="b" style="font-size : 20px; width: 20%; height: 100px;" onClick="makeMeme(); return false;">Make meme</button><button type="submit" style="font-size : 20px; width: 20%; height: 100px;">Return</button><p style="font-size : 20px">Right click to download</p></form>';
   element.insertAdjacentHTML('afterend', newElement);
 };
 function makeMeme(){
@@ -43,11 +43,13 @@ function makeMeme(){
   }
   var element = document.getElementById("b");
   $.post("https://api.imgflip.com/caption_image", params, function(data, status){
-    alert("Data: " + data + "\nStatus: " + status);
-    var newElement='<img src=\"'+data.data.url+'\">';
-    console.log("Data: " + data + "\nStatus: " + status);
-    console.log(data.data.url, data.data.page_url);
-    element.insertAdjacentHTML('afterend', newElement);
+    //alert("Data: " + data + "\nStatus: " + status);
+    $("#my_image").attr("src", data.data.url);
+    $("#clickhere").attr("href", data.data.url);
+  //  var newElement='<img src=\"'+data.data.url+'\">';
+    //console.log("Data: " + data + "\nStatus: " + status);
+    //console.log(data.data.url, data.data.page_url);
+    //element.insertAdjacentHTML('afterend', newElement);
   }, "json");
-
+  //alert("meme made");
 };
