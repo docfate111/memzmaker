@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/docfate111/memzmaker#readme",
   "dependencies": {
+    "jquery": "^3.5.0",
     "node-fetch": "^2.6.0",
     "request": "^2.88.2"
   }
