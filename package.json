@@ -19,7 +19,7 @@
   "dependencies": {
     "ghpages": "0.0.10",
     "jquery": "^3.5.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "request": "^2.88.2"
   }
 }
